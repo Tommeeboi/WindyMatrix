@@ -1,4 +1,5 @@
 <!-- I KNOW, THIS CODE IS HORRENDOUS!
+i rushed the front end for this a TON since it doesn't really matter how well the css is coded for this kinda thing.
 while some of it is due to squeezing everything into one file, most of it is because i wasn't aiming for this to be super professional.
 and hey, it runs fine in the end.
     
@@ -180,6 +181,17 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             rotate: 90deg;
         }
 
+        #addPlayer {
+            display: block;
+            border: 2px solid #000;
+            border-radius: 4px;
+            margin-top: 50px;
+            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            transform: scale(2.5);
+        }
+
         @keyframes zoomIn {
             from {
                 transform: scale(0) translate(-50%, -50%);
@@ -205,28 +217,30 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
     </div>
 
     <!-- https://dictionary.cambridge.org/images/thumb/isosce_noun_002_19585.jpg?version=5.0.388
-    https://static.vecteezy.com/system/resources/previews/001/200/691/non_2x/triangle-png.png
-    https://www.freeiconspng.com/thumbs/triangle-png/triangle-png-28.png
     https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514 -->
+
+    <!-- MAKE POSITION INPUT A DROPDOWN -->
     <div id="popBG1">
         <div class="innerPop1">
             <div class="innerTitle superBig centre bold">Create Team</div>
             <div class="griddy1">
                 <div id="p1">
                     <input type="text" id="n1" class="pIn" minlength="1" maxlength="12" placeholder="Marcus Jr.">
+                    <input type="text" id="p1" class="pIn" minlength="1" maxlength="12" placeholder="Attacker">
                     <!-- <input type="text" id="s1" class="pIn"> -->
                     <div class="hellOnEarth">
                         <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
-                        <div class="specialOne veryBig">3</div>
+                        <div id="s1" class="specialOne veryBig">3</div>
                         <div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                     </div>
                 </div>
                 <div id="p2">
                     <input type="text" id="n2" class="pIn" minlength="1" maxlength="12" placeholder="Kanye West">
+                    <input type="text" id="p2" class="pIn" minlength="1" maxlength="12" placeholder="Defender">
                     <!-- <input type="text" id="s2" class="pIn"> -->
                     <div class="hellOnEarth">
                         <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
-                        <div class="specialOne veryBig">3</div>
+                        <div id="s2" class="specialOne veryBig">3</div>
                         <div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                     </div>
                 </div>
@@ -255,6 +269,13 @@ if odd number of players, add worst dude to team with the lowest total skill rat
 make sure to have a "regenerate" button which sorts them again (with different rng)
 
 this is NOT permanent and may have changes later, possibly using average skill ratings
+*/
+
+/* rng placeholder name ideas:
+Marcus Jr.
+Kanye West
+DanTDM
+Tim
 */
 
 const createActivate = document.getElementById("doIt");
