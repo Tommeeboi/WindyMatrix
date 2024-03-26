@@ -144,6 +144,19 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             border: 2px solid #000;
         }
 
+        .sIn {
+            padding: 0px;
+            width: 132px;
+            height: 33px;
+            display: block;
+            margin: 5px auto;
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 20px;
+            background-color: hsl(0, 0%, 75%);
+            border: 2px solid #000;
+        }
+
         .hellOnEarth {
             width: 125px !important;
             height: 60px !important;
@@ -219,14 +232,17 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
     <!-- https://dictionary.cambridge.org/images/thumb/isosce_noun_002_19585.jpg?version=5.0.388
     https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514 -->
 
-    <!-- MAKE POSITION INPUT A DROPDOWN -->
     <div id="popBG1">
         <div class="innerPop1">
             <div class="innerTitle superBig centre bold">Create Team</div>
             <div class="griddy1">
                 <div id="p1">
-                    <input type="text" id="n1" class="pIn" minlength="1" maxlength="12" placeholder="Marcus Jr.">
-                    <input type="text" id="p1" class="pIn" minlength="1" maxlength="12" placeholder="Attacker">
+                    <input type="text" id="n1" class="pIn" minlength="1" maxlength="12" placeholder="((NAME))">
+                    <!-- <input type="text" id="p1" class="pIn" minlength="1" maxlength="12" placeholder="Attacker"> -->
+                    <select name="p1" id="po1" class="sIn">
+                        <option value="attacker">Attacker</option>
+                        <option value="defender">Defender</option>
+                    </select>
                     <!-- <input type="text" id="s1" class="pIn"> -->
                     <div class="hellOnEarth">
                         <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
@@ -235,8 +251,12 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
                     </div>
                 </div>
                 <div id="p2">
-                    <input type="text" id="n2" class="pIn" minlength="1" maxlength="12" placeholder="Kanye West">
-                    <input type="text" id="p2" class="pIn" minlength="1" maxlength="12" placeholder="Defender">
+                    <input type="text" id="n2" class="pIn" minlength="1" maxlength="12" placeholder="((NAME))">
+                    <!-- <input type="text" id="p2" class="pIn" minlength="1" maxlength="12" placeholder="Defender"> -->
+                    <select name="p2" id="po2" class="sIn">
+                        <option value="attacker">Attacker</option>
+                        <option value="defender">Defender</option>
+                    </select>
                     <!-- <input type="text" id="s2" class="pIn"> -->
                     <div class="hellOnEarth">
                         <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
@@ -276,12 +296,107 @@ Marcus Jr.
 Kanye West
 DanTDM
 Tim
+ChrisPBacon
+Potsy
+CaperingNini
 */
 
+const n1 = document.getElementById("n1");
+const n2 = document.getElementById("n2");
+
+let currentPlaceholder = undefined;
+let holderDecider = undefined;
+
+function randomPlaceholder(index) {
+    holderDecider = Math.floor(Math.random() * 7);
+
+    switch (holderDecider) {
+        case 0:
+            currentPlaceholder = "Marcus Jr.";
+            break;
+        case 1:
+            currentPlaceholder = "Kanye West";
+            break;
+        case 2:
+            currentPlaceholder = "DanTDM";
+            break;
+        case 3:
+            currentPlaceholder = "Tim";
+            break;
+        case 4:
+            currentPlaceholder = "ChrisPBacon";
+            break;
+        case 5:
+            currentPlaceholder = "Potsy";
+            break;
+        case 6:
+            currentPlaceholder = "CaperingNini";
+            break;
+        default:
+            currentPlaceholder = "error";
+            break;
+    }
+
+    return currentPlaceholder;
+}
+
+n1.placeholder = randomPlaceholder();
+n2.placeholder = randomPlaceholder();
+
 const createActivate = document.getElementById("doIt");
+const addBtn = document.getElementById("addPlayer");
 
 createActivate.onclick = function() {
     console.log("hello");
 }
+
+let currentPlayer = 2;
+
+addBtn.onclick = function() {
+    currentPlayer++;
+
+    const p = document.createElement("div");
+    p.id = `p${currentPlayer}`;
+
+    const n = document.createElement("input");
+    n.type = "text";
+    n.id = `n${currentPlayer}`;
+    n.className = "pIn";
+    n.minLength = "1";
+    n.maxLength = "12";
+    n.placeholder = randomPlaceholder();
+
+    const po = document.createElement("select");
+    n.name = "p2";
+    n.id = "po2";
+    n.className = "sIn";
+    
+    const o = document.createElement("option");
+    o.nodeValue = "attacker";
+    const ot = document.createTextNode("Attacker");
+
+    const o2 = document.createElement("option");
+    o2.nodeValue = "defender";
+    const ot2 = document.createTextNode("Defender");
+
+    const h = document.createElement("div");
+    h.className = "hellOnEarth";
+
+    const saw = document.createElement("div");
+    const saw2 = document.createElement("div");
+}
+
+/* <div id="p2">
+<input type="text" id="n2" class="pIn" minlength="1" maxlength="12" placeholder="((NAME))">
+<select name="p2" id="po2" class="sIn">
+<option value="attacker">Attacker</option>
+<option value="defender">Defender</option>
+</select>
+<div class="hellOnEarth">
+<div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+<div id="s2" class="specialOne veryBig">3</div>
+<div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+</div>
+</div> */
 </script>
 </html>
