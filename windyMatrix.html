@@ -119,7 +119,7 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             height: 100%;
         } */
 
-        .griddy1 {
+        #griddy1 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr;
@@ -127,7 +127,7 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             width: 100%;
         }
 
-        .griddy1 div {
+        #griddy1 div {
             width: 100%;
             height: 100%;
         }
@@ -235,7 +235,7 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
     <div id="popBG1">
         <div class="innerPop1">
             <div class="innerTitle superBig centre bold">Create Team</div>
-            <div class="griddy1">
+            <div id="griddy1">
                 <div id="p1">
                     <input type="text" id="n1" class="pIn" minlength="1" maxlength="12" placeholder="((NAME))">
                     <!-- <input type="text" id="p1" class="pIn" minlength="1" maxlength="12" placeholder="Attacker"> -->
@@ -304,6 +304,8 @@ CaperingNini
 const n1 = document.getElementById("n1");
 const n2 = document.getElementById("n2");
 
+const griddy1 = document.getElementById("griddy1");
+
 let currentPlaceholder = undefined;
 let holderDecider = undefined;
 
@@ -367,9 +369,9 @@ addBtn.onclick = function() {
     n.placeholder = randomPlaceholder();
 
     const po = document.createElement("select");
-    n.name = "p2";
-    n.id = "po2";
-    n.className = "sIn";
+    po.name = `p${currentPlayer}`;
+    po.id = `po${currentPlayer}`;
+    po.className = "sIn";
     
     const o = document.createElement("option");
     o.nodeValue = "attacker";
@@ -384,6 +386,39 @@ addBtn.onclick = function() {
 
     const saw = document.createElement("div");
     const saw2 = document.createElement("div");
+
+    const si1 = document.createElement("img");
+    si1.className = "scuffedArrow scuffedR1";
+    si1.src = "https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514";
+    si1.alt = "triangle";
+
+    const si2 = document.createElement("img");
+    si2.className = "scuffedArrow scuffedR2";
+    si2.src = "https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514";
+    si2.alt = "triangle";
+
+    const s = document.createElement("div");
+    s.id = `s${currentPlayer}`;
+    s.className = "specialOne veryBig";
+    const st = document.createTextNode("3");
+
+    // MAKE THIS DYNAMIC. THIS IS TEMPORARY
+    griddy1.style.gridTemplateColumns = "1fr 1fr 1fr";
+
+    griddy1.appendChild(p);
+    p.appendChild(n);
+    p.appendChild(po);
+    po.appendChild(o);
+    o.appendChild(ot);
+    po.appendChild(o2);
+    o2.appendChild(ot2);
+    p.appendChild(h);
+    h.appendChild(saw);
+    saw.appendChild(si1);
+    h.appendChild(s);
+    s.appendChild(st);
+    h.appendChild(saw2);
+    saw2.appendChild(si2);
 }
 
 /* <div id="p2">
