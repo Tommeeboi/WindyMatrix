@@ -13,6 +13,7 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WindyMatrix</title>
+    <link rel="icon" href="https://media.licdn.com/dms/image/D4E03AQGV57vM4_xM3g/profile-displayphoto-shrink_800_800/0/1707129012452?e=2147483647&v=beta&t=4brg2VWZ75bryxWre5GGTqIlFrIwsk2qu_D3oWrLjC4">
 
     <style>
         /* definetly didn't rip loads of the styling from my other works */
@@ -90,7 +91,7 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             z-index: 10;
         }
 
-        .innerPop1 {
+        #innerPop1 {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -121,9 +122,9 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
 
         #griddy1 {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             grid-template-rows: 1fr;
-            height: 100px;
+            height: 175px;
             width: 100%;
         }
 
@@ -198,11 +199,16 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
             display: block;
             border: 2px solid #000;
             border-radius: 4px;
-            margin-top: 50px;
+            /* margin-top: 65px; */
             margin-bottom: 15px;
             margin-left: auto;
             margin-right: auto;
             transform: scale(2.5);
+            transition: background-color 250ms 50ms;
+        }
+
+        #addPlayer:hover {
+            background-color: hsl(0, 0%, 75%);
         }
 
         @keyframes zoomIn {
@@ -233,8 +239,8 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
     https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514 -->
 
     <div id="popBG1">
-        <div class="innerPop1">
-            <div class="innerTitle superBig centre bold">Create Team</div>
+        <div id="innerPop1">
+            <div class="innerTitle superBig centre bold" style="margin-bottom: 10px;">Create Team (add remove button)</div>
             <div id="griddy1">
                 <div id="p1">
                     <input type="text" id="n1" class="pIn" minlength="1" maxlength="12" placeholder="((NAME))">
@@ -242,12 +248,14 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
                     <select name="p1" id="po1" class="sIn">
                         <option value="attacker">Attacker</option>
                         <option value="defender">Defender</option>
+                        <option value="midfielder">Midfielder</option>
+                        <option value="goalkeeper">Goalkeeper</option>
                     </select>
                     <!-- <input type="text" id="s1" class="pIn"> -->
                     <div class="hellOnEarth">
-                        <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+                        <div><img id="a1l" class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                         <div id="s1" class="specialOne veryBig">3</div>
-                        <div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+                        <div><img id="a1r" class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                     </div>
                 </div>
                 <div id="p2">
@@ -256,12 +264,14 @@ i wanted this to be multiple files but for the sake of simplicity i squeezed eve
                     <select name="p2" id="po2" class="sIn">
                         <option value="attacker">Attacker</option>
                         <option value="defender">Defender</option>
+                        <option value="midfielder">Midfielder</option>
+                        <option value="goalkeeper">Goalkeeper</option>
                     </select>
                     <!-- <input type="text" id="s2" class="pIn"> -->
                     <div class="hellOnEarth">
-                        <div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+                        <div><img id="a2l" class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                         <div id="s2" class="specialOne veryBig">3</div>
-                        <div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+                        <div><img id="a2r" class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
                     </div>
                 </div>
             </div>
@@ -300,6 +310,9 @@ ChrisPBacon
 Potsy
 CaperingNini
 */
+
+const popBG1 = document.getElementById("popBG1");
+const innerPop1 = document.getElementById("innerPop1");
 
 const n1 = document.getElementById("n1");
 const n2 = document.getElementById("n2");
@@ -381,6 +394,14 @@ addBtn.onclick = function() {
     o2.nodeValue = "defender";
     const ot2 = document.createTextNode("Defender");
 
+    const o3 = document.createElement("option");
+    o3.nodeValue = "midfielder";
+    const ot3 = document.createTextNode("Midfielder");
+
+    const o4 = document.createElement("option");
+    o4.nodeValue = "goalkeeper";
+    const ot4 = document.createTextNode("Goalkeeper");
+
     const h = document.createElement("div");
     h.className = "hellOnEarth";
 
@@ -388,11 +409,13 @@ addBtn.onclick = function() {
     const saw2 = document.createElement("div");
 
     const si1 = document.createElement("img");
+    si1.id = `a${currentPlayer}l`;
     si1.className = "scuffedArrow scuffedR1";
     si1.src = "https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514";
     si1.alt = "triangle";
 
     const si2 = document.createElement("img");
+    si2.id = `a${currentPlayer}r`;
     si2.className = "scuffedArrow scuffedR2";
     si2.src = "https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514";
     si2.alt = "triangle";
@@ -402,8 +425,25 @@ addBtn.onclick = function() {
     s.className = "specialOne veryBig";
     const st = document.createTextNode("3");
 
-    // MAKE THIS DYNAMIC. THIS IS TEMPORARY
-    griddy1.style.gridTemplateColumns = "1fr 1fr 1fr";
+    /* MAKE THIS DYNAMIC. THIS IS TEMPORARY
+    griddy1.style.gridTemplateColumns = "1fr 1fr 1fr"; */
+
+    if (currentPlayer < 6) {
+        /* griddy1.style.gridTemplateColumns = "1fr";
+        for (let i = 0; i <= currentPlayer - 2; i++) {
+            griddy1.style.gridTemplateColumns += " 1fr";
+        } */
+        griddy1.style.gridTemplateColumns = `repeat(${currentPlayer}, 1fr)`;
+    } else if (currentPlayer === 6) {
+        griddy1.style.height = "350px";
+        griddy1.style.gridTemplateRows = "1fr 1fr";
+    } else if (currentPlayer === 11) {
+        griddy1.style.height = "525px";
+        griddy1.style.gridTemplateRows = "1fr 1fr 1fr";
+    } else if (currentPlayer === 16) {
+        innerPop1.style.width = "1425px";
+        griddy1.style.gridTemplateColumns = "repeat(8, 1fr)";
+    }
 
     griddy1.appendChild(p);
     p.appendChild(n);
@@ -412,6 +452,10 @@ addBtn.onclick = function() {
     o.appendChild(ot);
     po.appendChild(o2);
     o2.appendChild(ot2);
+    po.appendChild(o3);
+    o3.appendChild(ot3);
+    po.appendChild(o4);
+    o4.appendChild(ot4);
     p.appendChild(h);
     h.appendChild(saw);
     saw.appendChild(si1);
@@ -428,9 +472,9 @@ addBtn.onclick = function() {
 <option value="defender">Defender</option>
 </select>
 <div class="hellOnEarth">
-<div><img class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+<div><img id="a2l" class="scuffedArrow scuffedR1" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
 <div id="s2" class="specialOne veryBig">3</div>
-<div><img class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
+<div><img id="a2r" class="scuffedArrow scuffedR2" src="https://www.colourflooring.co.uk/cdn/shop/products/Mildmay_Grey_Rubber_Triangle_Tiles.png?v=1571264514" alt="triangle"></div>
 </div>
 </div> */
 </script>
