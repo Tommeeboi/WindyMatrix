@@ -14,8 +14,9 @@ Then simply double-click the file and it SHOULD open up in the terminal
 
 ## Source Code
 **THIS IS NOT NEEDED IF YOU JUST WANT THE BASE APP**
-
 If the compiled versions don't work for you, or you want to look at/modify the code, then you can download the source code through Code -> Download ZIP
+
+**Install node.js if you haven't already!**
 
 To use the default file, first run `npm i prompt-sync` if you haven't already. Then just `node windyMatrix`
 
