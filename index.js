@@ -13,7 +13,7 @@ if odd number of players, add worst dude to team with the lowest total skill rat
 
 make sure to have a "regenerate" button which sorts them again (with different rng)
 
-this is NOT permanent and may have changes later, possibly using average skill ratings
+this is NOT permanent and may have changes later, possibly using positions/average skill ratings
 */
 
 /* pkg -t node18-win index.js (DO NOT try using x86 too. machine is x64 and i think this does x64 but i might be wrong idk it works anyway)
@@ -23,6 +23,7 @@ pkg index.js */
 
 // prompt-sync likes to be buggy with long messages and \n, so they are separate from some console.logs
 
+// remove fs if it's never used
 const fs = require("fs");
 const prompt = require("prompt-sync")();
 
@@ -114,6 +115,8 @@ console.log("\nGenerating teams...");
 console.log(skillArray); */
 
 let masterArray = [];
+
+// orders players from best to worst by skill rating
 for (let j = 1; j < nextPlayer; j++) {
     if (skillArray[j] === "5") {
         masterArray.push(nameArray[j]);
@@ -145,4 +148,51 @@ for (let o = 1; o < nextPlayer; o++) {
     }
 }
 
-console.log(masterArray);
+console.log(masterArray[masterArray.length - 1]);
+// console.log(masterArray);
+
+// fun fact: i have never used modulo until this
+// 1 = odd, 0 = even
+const isOdd = masterArray.length % 2;
+let amountOfBad = 0;
+
+if (isOdd === 1) {
+    for (let p = 1; p < nextPlayer; p++) {
+        if (skillArray[p] === "1") {
+            amountOfBad++;
+        }
+    }
+
+    if (amountOfBad === 0) {
+        for (let q = 1; q < nextPlayer; q++) {
+            if (skillArray[q] === "2") {
+                amountOfBad++;
+            }
+        }
+    }
+
+    if (amountOfBad === 0) {
+        for (let r = 1; r < nextPlayer; r++) {
+            if (skillArray[r] === "3") {
+                amountOfBad++;
+            }
+        }
+    }
+
+    // s was reserved
+    if (amountOfBad === 0) {
+        for (let t = 1; t < nextPlayer; t++) {
+            if (skillArray[t] === "4") {
+                amountOfBad++;
+            }
+        }
+    }
+
+    if (amountOfBad === 0) {
+        amountOfBad = masterArray.length;
+    }
+
+    // FINISH THIS! CODE SELECTING PLAYER AT RANDOM
+}
+
+console.log(amountOfBad);
