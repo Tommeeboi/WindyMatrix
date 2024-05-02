@@ -1,3 +1,5 @@
+// finish relisten of galaxy 2 ost bich
+
 /* HOW THIS WORKS:
 plan:
 take all players as separate arrays, 0 as name and 1 as skill (out of 5)
@@ -14,8 +16,8 @@ make sure to have a "regenerate" button which sorts them again (with different r
 this is NOT permanent and may have changes later, possibly using average skill ratings
 */
 
-/* pkg node18-win-x64 index.js (try using x86 too)
-pkg node18-macos-x64 index.js (mac might not be x64, check model number with the big man)
+/* pkg -t node18-win index.js (DO NOT try using x86 too. machine is x64 and i think this does x64 but i might be wrong idk it works anyway)
+pkg -t node18-macos index.js (mac might not be x64, check model number with the big man)
 on mac file is double-clickable and will open terminal, even without file extension. if it fails, maybe add .app to the end
 pkg index.js */
 
@@ -28,6 +30,7 @@ console.log("WindyMatrix v1.0\nBy Tommeeboi (with help from Boiga)\n");
 
 console.log('Input "end" to exit program at any time.\n\nAdd your first player:');
 
+// first value is purposefully left empty for simplicity (e.g. player 1 is slot 1 instead of 0)
 let nameArray = [];
 let skillArray = [];
 
@@ -42,7 +45,7 @@ function createPlayer(id) {
     if (n === "end" || s === "end") {
         console.log("\nTerminating process...");
         process.exit(0);
-    } else if (n === "") {
+    } else if (n === "" || !n) {
         console.log("\nError: Name is nonexistent. Please try again.");
         createPlayer(id);
     } else if (isNaN(s.charAt(0)) || s === "") {
@@ -70,7 +73,6 @@ function choice1() {
     if (choice === "a") {
         createPlayer(nextPlayer);
     } else if (choice === "v") {
-        // do this later
         console.log("\nCurrent Players:");
         for (let i = 1; i < nextPlayer; i++) {
             console.log(`- ${nameArray[i]} (${skillArray[i]})`);
@@ -79,7 +81,14 @@ function choice1() {
         choice1();
     } else if (choice === "g") {
         // do this later
-        console.log("generate teams");
+        console.log("\nAre you sure? You won't be able to add players once you proceed. (y/n)");
+        let sure = prompt();
+        console.log("");
+        checkCount();
+
+        if (sure !== "y") {
+            choice1();
+        }
     } else if (choice === "end") {
         console.log("\nTerminating process...");
         process.exit(0);
@@ -90,3 +99,50 @@ function choice1() {
 }
 
 createPlayer(1);
+
+// generate team code (isn't run until you escape createPlayer() or choice1(), which can only be done by inputting g)
+function checkCount() {
+    if (nextPlayer < 3) {
+        console.log("Error: Insufficient player count. Please try again.");
+        choice1();
+    }
+}
+
+
+console.log("\nGenerating teams...");
+/* console.log(nameArray);
+console.log(skillArray); */
+
+let masterArray = [];
+for (let j = 1; j < nextPlayer; j++) {
+    if (skillArray[j] === "5") {
+        masterArray.push(nameArray[j]);
+    }
+}
+
+for (let k = 1; k < nextPlayer; k++) {
+    if (skillArray[k] === "4") {
+        masterArray.push(nameArray[k]);
+    }
+}
+
+for (let l = 1; l < nextPlayer; l++) {
+    if (skillArray[l] === "3") {
+        masterArray.push(nameArray[l]);
+    }
+}
+
+for (let m = 1; m < nextPlayer; m++) {
+    if (skillArray[m] === "2") {
+        masterArray.push(nameArray[m]);
+    }
+}
+
+// n was reserved
+for (let o = 1; o < nextPlayer; o++) {
+    if (skillArray[o] === "1") {
+        masterArray.push(nameArray[o]);
+    }
+}
+
+console.log(masterArray);
