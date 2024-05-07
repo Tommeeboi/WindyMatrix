@@ -148,13 +148,15 @@ for (let o = 1; o < nextPlayer; o++) {
     }
 }
 
-console.log(masterArray[masterArray.length - 1]);
+// console.log(masterArray[masterArray.length - 1]);
 // console.log(masterArray);
 
 // fun fact: i have never used modulo until this
 // 1 = odd, 0 = even
 const isOdd = masterArray.length % 2;
 let amountOfBad = 0;
+let rng = 0;
+let leftOut = 0;
 
 if (isOdd === 1) {
     for (let p = 1; p < nextPlayer; p++) {
@@ -192,7 +194,42 @@ if (isOdd === 1) {
         amountOfBad = masterArray.length;
     }
 
-    // FINISH THIS! CODE SELECTING PLAYER AT RANDOM
+    // IDEA: MAKE IT SO THAT THE THING CHECKS HOW BIG AMOUNTOFBAD IS AND HOW BIG IT IS IS THE RANGE OF NUMBERS IT RNGS (WITH +1) AND IT TAKES AWAY THE SLOT THAT IS masterArray.length - (whatever the rng generated)
+
+    rng = Math.floor(Math.random() * amountOfBad) + 1;
+    leftOut = masterArray[masterArray.length - rng];
+    // why is deleting elements from arrays so unhelpful
+    masterArray.splice(masterArray.length - rng, 1);
 }
 
+console.log(masterArray);
+console.log(masterArray.length);
 console.log(amountOfBad);
+
+// probably didn't need currents but they made stuff more simple
+let team1 = [];
+let team2 = [];
+let currentTeam = 0;
+let currentMaster = 0;
+let currentMasterLength = masterArray.length / 2;
+
+for (let u = 0; u <= currentMasterLength; u++) {
+    rng = Math.floor(Math.random() * 2);
+
+    if (rng === 0) {
+        team1[currentTeam] = masterArray[currentMaster];
+        team2[currentTeam] = masterArray[currentMaster + 1];
+    } else {
+        team1[currentTeam] = masterArray[currentMaster + 1];
+        team2[currentTeam] = masterArray[currentMaster];
+    }
+
+    currentTeam++;
+    currentMaster += 2;
+}
+
+/* the planz:
+repeat the ifs until masterArray.length === 0
+
+CURRENTMASTERLENGTH MIGHT NOT BE NEEDED IF ELEMENTS AREN'T SPLICED FROM MASTERARRAY (current plan)
+*/
