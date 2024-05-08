@@ -110,7 +110,7 @@ function checkCount() {
 }
 
 
-console.log("\nGenerating teams...");
+console.log("\nGenerating teams...\n");
 /* console.log(nameArray);
 console.log(skillArray); */
 
@@ -206,14 +206,14 @@ console.log(masterArray);
 console.log(masterArray.length);
 console.log(amountOfBad);
 
-// probably didn't need currents but they made stuff more simple
+// probably didn't need currents but they made stuff easier to code so idc
 let team1 = [];
 let team2 = [];
 let currentTeam = 0;
 let currentMaster = 0;
 let currentMasterLength = masterArray.length / 2;
 
-for (let u = 0; u <= currentMasterLength; u++) {
+for (let u = 0; u < currentMasterLength; u++) {
     rng = Math.floor(Math.random() * 2);
 
     if (rng === 0) {
@@ -228,8 +228,23 @@ for (let u = 0; u <= currentMasterLength; u++) {
     currentMaster += 2;
 }
 
-/* the planz:
-repeat the ifs until masterArray.length === 0
+rng = Math.floor(Math.random() * 2);
 
-CURRENTMASTERLENGTH MIGHT NOT BE NEEDED IF ELEMENTS AREN'T SPLICED FROM MASTERARRAY (current plan)
-*/
+if (rng === 0) {
+    team1.push(leftOut);
+} else {
+    team2.push(leftOut);
+}
+
+console.log(team1);
+console.log(team2);
+
+console.log("Team 1:");
+for (let v = 0; v < masterArray.length; v++) {
+    console.log(`- ${team1[v]}`);
+}
+
+console.log("\nTeam 2:");
+for (let w = 0; w < masterArray.length; w++) {
+    console.log(`- ${team2[w]}`);
+}
