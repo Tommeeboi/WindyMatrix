@@ -29,6 +29,6 @@ If you just want to compile for a specific platform, then run `pkg -t [PLATFORM]
 - macOS: `node??-macos`
 - Linux: `node??-linux`
 
-(Replace "??" with the first part of your node version, e.g. v20.12.2 would be `node20`)
+(Replace "??" with the first part of your node version, e.g. v18.15.0 would be `node20`)
 
 **i have no idea what else to put here**

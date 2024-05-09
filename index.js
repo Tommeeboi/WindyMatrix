@@ -115,29 +115,34 @@ console.log("\nGenerating teams...\n");
 console.log(skillArray); */
 
 let masterArray = [];
+let sortedSkill = [];
 
 // orders players from best to worst by skill rating
 for (let j = 1; j < nextPlayer; j++) {
     if (skillArray[j] === "5") {
         masterArray.push(nameArray[j]);
+        sortedSkill.push(skillArray[j]);
     }
 }
 
 for (let k = 1; k < nextPlayer; k++) {
     if (skillArray[k] === "4") {
         masterArray.push(nameArray[k]);
+        sortedSkill.push(skillArray[k]);
     }
 }
 
 for (let l = 1; l < nextPlayer; l++) {
     if (skillArray[l] === "3") {
         masterArray.push(nameArray[l]);
+        sortedSkill.push(skillArray[l]);
     }
 }
 
 for (let m = 1; m < nextPlayer; m++) {
     if (skillArray[m] === "2") {
         masterArray.push(nameArray[m]);
+        sortedSkill.push(skillArray[m]);
     }
 }
 
@@ -145,18 +150,21 @@ for (let m = 1; m < nextPlayer; m++) {
 for (let o = 1; o < nextPlayer; o++) {
     if (skillArray[o] === "1") {
         masterArray.push(nameArray[o]);
+        sortedSkill.push(skillArray[o]);
     }
 }
 
-// console.log(masterArray[masterArray.length - 1]);
-// console.log(masterArray);
+/* console.log("before leftout and amountofbad stuff")
+console.log(masterArray);
+console.log(sortedSkill); */
 
 // fun fact: i have never used modulo until this
 // 1 = odd, 0 = even
 const isOdd = masterArray.length % 2;
 let amountOfBad = 0;
 let rng = 0;
-let leftOut = 0;
+let leftOut = undefined;
+let leftOutSkill = 0;
 
 if (isOdd === 1) {
     for (let p = 1; p < nextPlayer; p++) {
@@ -194,57 +202,86 @@ if (isOdd === 1) {
         amountOfBad = masterArray.length;
     }
 
-    // IDEA: MAKE IT SO THAT THE THING CHECKS HOW BIG AMOUNTOFBAD IS AND HOW BIG IT IS IS THE RANGE OF NUMBERS IT RNGS (WITH +1) AND IT TAKES AWAY THE SLOT THAT IS masterArray.length - (whatever the rng generated)
-
     rng = Math.floor(Math.random() * amountOfBad) + 1;
     leftOut = masterArray[masterArray.length - rng];
+    leftOutSkill = sortedSkill[sortedSkill.length - rng];
     // why is deleting elements from arrays so unhelpful
     masterArray.splice(masterArray.length - rng, 1);
+    sortedSkill.splice(sortedSkill.length - rng, 1);
 }
 
 console.log(masterArray);
-console.log(masterArray.length);
-console.log(amountOfBad);
+console.log(sortedSkill);
+console.log("master length:" + masterArray.length);
+console.log("sorted skill length:" + sortedSkill.length);
+console.log("amountOfBad:" + amountOfBad);
 
 // probably didn't need currents but they made stuff easier to code so idc
 let team1 = [];
 let team2 = [];
+let team1S = [];
+let team2S = [];
 let currentTeam = 0;
 let currentMaster = 0;
 let currentMasterLength = masterArray.length / 2;
+let totalSkill1 = 0;
+let totalSkill2 = 0;
 
 for (let u = 0; u < currentMasterLength; u++) {
     rng = Math.floor(Math.random() * 2);
 
     if (rng === 0) {
         team1[currentTeam] = masterArray[currentMaster];
+        team1S[currentTeam] = sortedSkill[currentMaster];
+        totalSkill1 += Number(sortedSkill[currentMaster]);
         team2[currentTeam] = masterArray[currentMaster + 1];
+        team2S[currentTeam] = sortedSkill[currentMaster + 1];
+        totalSkill2 += Number(sortedSkill[currentMaster + 1]);
     } else {
         team1[currentTeam] = masterArray[currentMaster + 1];
+        team1S[currentTeam] = sortedSkill[currentMaster + 1];
+        totalSkill1 += Number(sortedSkill[currentMaster + 1]);
         team2[currentTeam] = masterArray[currentMaster];
+        team2S[currentTeam] = sortedSkill[currentMaster];
+        totalSkill2 += Number(sortedSkill[currentMaster]);
     }
 
     currentTeam++;
     currentMaster += 2;
 }
 
-rng = Math.floor(Math.random() * 2);
+/* CREATE BETTER LEFTOUT TEAM SELECTING! COMMENT OUT RNG STUFF BELOW AND ADD IT AS A LAST RESORT
+if (isOdd === 1) {
 
-if (rng === 0) {
-    team1.push(leftOut);
-} else {
-    team2.push(leftOut);
+} */
+
+if (isOdd === 1) {
+    rng = Math.floor(Math.random() * 2);
+    if (rng === 0) {
+        team1.push(leftOut);
+        team1S.push(leftOutSkill);
+        totalSkill1 += Number(leftOutSkill);
+    } else {
+        team2.push(leftOut);
+        team2S.push(leftOutSkill);
+        totalSkill2 += Number(leftOutSkill);
+    }
 }
 
 console.log(team1);
+console.log(team1S);
 console.log(team2);
+console.log(team2S);
 
+// maybe add display average skill rating depending on how easy it is
 console.log("Team 1:");
-for (let v = 0; v < masterArray.length; v++) {
-    console.log(`- ${team1[v]}`);
+for (let v = 0; v < team1.length; v++) {
+    console.log(`- ${team1[v]} (${team1S[v]})`);
 }
+console.log(`Total Skill Rating: ${totalSkill1}\n`);
 
-console.log("\nTeam 2:");
-for (let w = 0; w < masterArray.length; w++) {
-    console.log(`- ${team2[w]}`);
+console.log("Team 2:");
+for (let w = 0; w < team2.length; w++) {
+    console.log(`- ${team2[w]} (${team2S[w]})`);
 }
+console.log(`Total Skill Rating: ${totalSkill2}\n`);
