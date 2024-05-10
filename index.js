@@ -210,11 +210,11 @@ if (isOdd === 1) {
     sortedSkill.splice(sortedSkill.length - rng, 1);
 }
 
-console.log(masterArray);
+/* console.log(masterArray);
 console.log(sortedSkill);
 console.log("master length:" + masterArray.length);
 console.log("sorted skill length:" + sortedSkill.length);
-console.log("amountOfBad:" + amountOfBad);
+console.log("amountOfBad:" + amountOfBad); */
 
 // probably didn't need currents but they made stuff easier to code so idc
 let team1 = [];
@@ -250,21 +250,56 @@ for (let u = 0; u < currentMasterLength; u++) {
     currentMaster += 2;
 }
 
-/* CREATE BETTER LEFTOUT TEAM SELECTING! COMMENT OUT RNG STUFF BELOW AND ADD IT AS A LAST RESORT
-if (isOdd === 1) {
+// average skill rating stuff
+// the reason they start out as a string is so that i can easily detect how many digits there are and decide whether to round them or not. i could round them every time but i want my precious ~ sign to only show up when needed
+let avgSkill1 = `${totalSkill1 / team1.length}`;
+let avgSkill2 = `${totalSkill2 / team2.length}`;
+let avgRounded1 = false;
+let avgRounded2 = false;
 
-} */
+if (avgSkill1.length > 4) {
+    avgSkill1 = Number(avgSkill1);
+    avgSkill1 = Number(avgSkill1.toFixed(2));
+    avgRounded1 = true;
+}
 
+if (avgSkill2.length > 4) {
+    avgSkill2 = Number(avgSkill2);
+    avgSkill2 = Number(avgSkill2.toFixed(2));
+    avgRounded2 = true;
+}
+
+// tries to add the temporarily taken out worst player to a good team. not a perfect system but it's fine
 if (isOdd === 1) {
-    rng = Math.floor(Math.random() * 2);
-    if (rng === 0) {
+    if (totalSkill1 < totalSkill2) {
         team1.push(leftOut);
         team1S.push(leftOutSkill);
         totalSkill1 += Number(leftOutSkill);
-    } else {
+    } else if (totalSkill1 > totalSkill2) {
         team2.push(leftOut);
         team2S.push(leftOutSkill);
         totalSkill2 += Number(leftOutSkill);
+    } else {
+        if (avgSkill1 < avgSkill2) {
+            team1.push(leftOut);
+            team1S.push(leftOutSkill);
+            totalSkill1 += Number(leftOutSkill);
+        } else if (avgSkill1 > avgSkill2) {
+            team2.push(leftOut);
+            team2S.push(leftOutSkill);
+            totalSkill2 += Number(leftOutSkill);
+        } else {
+            rng = Math.floor(Math.random() * 2);
+            if (rng === 0) {
+                team1.push(leftOut);
+                team1S.push(leftOutSkill);
+                totalSkill1 += Number(leftOutSkill);
+            } else {
+                team2.push(leftOut);
+                team2S.push(leftOutSkill);
+                totalSkill2 += Number(leftOutSkill);
+            }
+        }
     }
 }
 
@@ -278,10 +313,20 @@ console.log("Team 1:");
 for (let v = 0; v < team1.length; v++) {
     console.log(`- ${team1[v]} (${team1S[v]})`);
 }
-console.log(`Total Skill Rating: ${totalSkill1}\n`);
+console.log(`Total Skill Rating: ${totalSkill1}`);
+if (avgRounded1) {
+    console.log(`Average Skill Rating: ~${avgSkill1}\n`);
+} else {
+    console.log(`Average Skill Rating: ${avgSkill1}\n`);
+}
 
 console.log("Team 2:");
 for (let w = 0; w < team2.length; w++) {
     console.log(`- ${team2[w]} (${team2S[w]})`);
 }
-console.log(`Total Skill Rating: ${totalSkill2}\n`);
+console.log(`Total Skill Rating: ${totalSkill2}`);
+if (avgRounded2) {
+    console.log(`Average Skill Rating: ~${avgSkill2}\n`);
+} else {
+    console.log(`Average Skill Rating: ${avgSkill2}\n`);
+}
