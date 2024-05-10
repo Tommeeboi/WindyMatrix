@@ -1,8 +1,3 @@
-/* pkg -t node18-win index.js (DO NOT try using x86 too. machine is x64 and i think this does x64 but i might be wrong idk it works anyway)
-pkg -t node18-macos index.js (mac might not be x64, check model number with the big man)
-on mac file is double-clickable and will open terminal, even without file extension. if it fails, maybe add .app to the end
-pkg index.js */
-
 // prompt-sync likes to be buggy with long messages and \n, so they are separate from some console.logs
 
 // fs may be here in the future if i add creating text files with the teams
@@ -11,7 +6,7 @@ const prompt = require("prompt-sync")();
 
 console.log("WindyMatrix v1.0\nBy Tommeeboi (with help from Boiga)\n");
 
-console.log('Input "end" to exit program at any time.\n\nAdd your first player:');
+console.log('Input "end" to exit the program at any time.\n\nAdd your first player:');
 
 // first value is purposefully left empty for simplicity (e.g. player 1 is slot 1 instead of 0)
 let nameArray = [];
@@ -302,7 +297,7 @@ function generate() {
 generate();
 
 function choice2() {
-    console.log('Input "r" to regenerate, or "end" to exit.');
+    console.log('Input "r" to regenerate, or "end" to exit. (Make a note of the teams first!)');
     let ultimateDecision = prompt();
 
     if (ultimateDecision === "r") {
