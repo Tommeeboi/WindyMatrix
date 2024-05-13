@@ -4,7 +4,7 @@ A silly program that was created to organise Football teams fairly
 Was originally going to be a website, but made into a simple command-line app for ease of use (and because I couldn't be bothered)
 
 ## How To Use
-Navigate to the latest release (or click [here](https://github.com/Tommeeboi/releases)) and download the corresponding file:
+Navigate to the latest release (or click [here](https://github.com/Tommeeboi/WindyMatrix/releases)) and download the corresponding file:
 
 - Windows: `windyMatrix.exe`
 - MacOS: `windyMatrixMac`
